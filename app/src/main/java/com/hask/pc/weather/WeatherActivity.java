@@ -1,5 +1,6 @@
 package com.hask.pc.weather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hask.pc.weather.gson.Forecast;
 import com.hask.pc.weather.gson.Weather;
+import com.hask.pc.weather.service.AutoUpdateService;
 import com.hask.pc.weather.util.HttpUtil;
 import com.hask.pc.weather.util.Utility;
 
@@ -232,6 +234,8 @@ public class WeatherActivity extends AppCompatActivity {
             carWashText.setText(carWash);
             sportText.setText(sport);
             weatherLayout.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(this,AutoUpdateService.class);
+            startService(intent);
     }
 
 }
