@@ -10,11 +10,17 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +53,9 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView sportText;
     private ImageView bingPicImg;
     private Button navButton;
+    private Button setButton;
+
+    private CheckBox checkBox;
 
     public SwipeRefreshLayout swipeRefresh;
     public DrawerLayout drawerLayout;
@@ -82,6 +91,19 @@ public class WeatherActivity extends AppCompatActivity {
         bingPicImg = (ImageView)findViewById(R.id.bing_pic_img);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         navButton = (Button)findViewById(R.id.nav_button);
+        setButton = (Button)findViewById(R.id.title_seting);
+
+//        checkBox = (CheckBox)LayoutInflater.from(WeatherActivity.this).
+//                inflate(R.layout.activity_set,null).findViewById(R.id.check_box);
+
+
+
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
+            }
+        });
 
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +123,7 @@ public class WeatherActivity extends AppCompatActivity {
             loadBingPic();
         }
 
+
         String weatherString = prefs.getString("weather",null);
         final String weatherId;
         if(weatherString!=null){
@@ -119,6 +142,36 @@ public class WeatherActivity extends AppCompatActivity {
                     requestWeather(weatherId);
             }
         });
+    }
+
+
+    private void showPopupMenu(View view){
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.setmenu,popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_set:
+                        Intent start_set = new Intent(WeatherActivity.this,SetActivity.class);
+                        startActivity(start_set);
+                        break;
+                    default:
+                }
+
+                return false;
+            }
+        });
+
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+
+            }
+        });
+
+        popupMenu.show();
     }
 
     private void loadBingPic(){
@@ -234,8 +287,11 @@ public class WeatherActivity extends AppCompatActivity {
             carWashText.setText(carWash);
             sportText.setText(sport);
             weatherLayout.setVisibility(View.VISIBLE);
-            Intent intent = new Intent(this,AutoUpdateService.class);
-            startService(intent);
-    }
 
+            SharedPreferences prefs = getSharedPreferences("seting",MODE_PRIVATE);
+            String ischecked = prefs.getString("startService",null);
+            if(ischecked == null){
+                prefs.edit().putString("startService","ok").commit();
+            }
+    }
 }

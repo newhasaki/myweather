@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
+
+    <RelativeLayout
+        android:background="#252222"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/set_back"
+            android:layout_width="60sp"
+            android:layout_height="35sp"
+            android:textSize="10sp"
+            android:text="返回"
+            />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="设置"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:layout_toRightOf="@+id/set_back"
+            />
+        
+    </RelativeLayout>
+
+
+      
+        <RelativeLayout
+            android:showDividers="middle"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginLeft="4dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="后台自动更新"
+                    android:textSize="25sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否允许后台自动更新"
+                    android:textColor="#dfdbdb"
+                    android:textSize="15sp"
+                    />
+
+            </LinearLayout>
+                <CheckBox
+                    android:id="@+id/check_box"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+      <include layout="@layout/dividingline"></include>
+
+  </LinearLayout>
+
+</LinearLayout>
